@@ -3,8 +3,10 @@ huboJointConst
 
 pth = what;
 
+theStr = ['simulation stop ',num2str(T)];
 
-orEnvSetOptions('simulation stop 0.01');
+%orEnvSetOptions('simulation stop 0.01');
+orEnvSetOptions(theStr);
 pause(1.0)
 disp('stop simulation');
 orEnvLoadScene([pth.path,'/environments/kitchen.env.xml'],1)
