@@ -1,0 +1,3 @@
+[submodule "openHubo"]
+	path = openHubo
+	url = git@github.com:thedancomplex/openHubo.git
