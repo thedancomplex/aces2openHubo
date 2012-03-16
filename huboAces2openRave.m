@@ -4,8 +4,13 @@ clear all
 %%i setup initial hubo and world in openRAVE
 huboOpenRAVEsetup
 
-T = 0.01
+%% sampling rate
+T = 0.01;
+
+%% time start   
 t = 0
+
+
 
 %d = 1;
 
