@@ -13,7 +13,7 @@ function []	=	can2aces(tName, m)
 %	tName.aces	=	will add file to logging director with the 
 %				extention of *.aces added
 
-addpath('huboJointConstants');
+addpath('openHubo/huboJointConstants');
 huboJointConst;
 
 mot 	=	[];
