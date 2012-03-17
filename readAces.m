@@ -29,16 +29,9 @@ for(i = 1:length(h{1}))
 	%% get current joint column
 	a = h{1};
 	a = a{i};
-	for( ii = 1:length(jn) )
-		if(length(a) == length(jn{ii}))
-			t1 = a & jn{ii};
-			if(sum(t1) == 3 & sum(length(a)) == 3)
-				save t2.mat t1 a;
-				jc(i) = ii -1;	% motor number
-				disp(['here ',num2str(i)])
-			end
-		end
-	end 
+	tt 	=	strcmp(a,jn);
+	ti 	=	find(tt == 1);
+	jc(i) 	= 	min(ti) - 1;
 end
 
 
