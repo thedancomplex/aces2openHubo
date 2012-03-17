@@ -15,25 +15,27 @@ addpath('openHubo/huboJointConstants');
 huboJointConst;
 
 
-disp(['Reading Joint: ', jn{m+1}])
+%disp(['Reading Joint: ', jn{m+1}])
 
 %% read file - h = headder, d = data
-[h,d] = hdrload('logs/throwTestR4_feet_still.txt.aces');
+[h,d] = hdrload(tName);
 
 %% change headder into cell format
 h = textscan(h,'%s');
 
 %% search through all of the recorded joints
 jc = [];	% joint columns
-for(i = 1:length(h))
+for(i = 1:length(h{1}))
 	%% get current joint column
-	a = h{i};
-
+	a = h{1};
+	a = a{i};
 	for( ii = 1:length(jn) )
-		if(length(a) == length(a))
+		if(length(a) == length(jn{ii}))
 			t1 = a & jn{ii};
-			if(sum(t1) == length(a))
+			if(sum(t1) == 3 & sum(length(a)) == 3)
+				save t2.mat t1 a;
 				jc(i) = ii -1;	% motor number
+				disp(['here ',num2str(i)])
 			end
 		end
 	end 
