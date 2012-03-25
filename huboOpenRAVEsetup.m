@@ -1,4 +1,5 @@
 %% Set joint constants
+addpath('openHubo/huboJointConstants');
 huboJointConst
 
 pth = what;
