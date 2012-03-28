@@ -61,6 +61,7 @@ for ( i = 1:length(mo) )
 	deg(:,i) = deg(:,i)*orDir(t);
 end
 
+da = filterAces(da,3);
 
 shortName =	recordAces(mo,deg,'huboThrowSteps');
 tname = recordAces(mo,da,'huboThrowR2');
