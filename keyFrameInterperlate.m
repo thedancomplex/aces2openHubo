@@ -21,8 +21,8 @@ T = 0.01;
 load record_ThrowR2;
 
 s = size(deg);
-%% index	  1    2    3    4    5    6    7
-tSec 	=  	[1.0, 0.5, 0.5, 0.1, 0.1, 0.1, 1.0];
+%% index	  1-2 2-3  3-4   4-5   5-6   6-7
+tSec 	=  	[1.0, 0.5, 0.1, 0.08, 0.08, 0.3];
 nstep 	= 	tSec/T;
 n 	= 	floor(nstep);
 da 	= 	[];
@@ -55,6 +55,14 @@ for(i = 1:length(mDes))
 	mo{i} = jn{ii};
 end
 
+for ( i = 1:length(mo) )
+	t = strcmp(jn,mo{i});
+	t = min(find(t==1));
+	deg(:,i) = deg(:,i)*orDir(t);
+end
+
+
+shortName =	recordAces(mo,deg,'huboThrowSteps');
 tname = recordAces(mo,da,'huboThrowR2');
 velot = playAces2(tname,T,3);
 v = sum((velot.^2)');
