@@ -21,17 +21,17 @@ T = 0.01;
 load record_ThrowR2;
 
 s = size(deg);
-
-tSec 	=  	1.0;
+%% index	  1    2    3    4    5    6    7
+tSec 	=  	[1.0, 0.5, 0.5, 0.1, 0.1, 0.1, 1.0];
 nstep 	= 	tSec/T;
 n 	= 	floor(nstep);
 da 	= 	[];
 d = [];
 for( i = 0:(s(1)-2))
 
-	for(j = 1:n)
+	for(j = 1:n(i+1))
 		ii = i*n+j;
-		dv = (deg(i+2,:) - deg(i+1,:))/n;
+		dv = (deg(i+2,:) - deg(i+1,:))/n(i+1);
 		dp = deg(i+1,:); 
 		da(ii,:) =  dp + dv*j;
 		
@@ -54,4 +54,10 @@ for(i = 1:length(mDes))
 end
 
 tname = recordAces(mo,da,'huboThrowR2');
-playAces(tname,T);
+velot = playAces2(tname,T,3);
+v = sum((velot.^2)');
+figure
+plot((1:length(v))*T,v);
+xlabel('Time (sec)');
+ylabel('Speed (m/sec)');
+title('speed graph of right hand in reference to right foot');
