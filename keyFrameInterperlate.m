@@ -65,7 +65,7 @@ da = filterAces(da,3);
 
 shortName =	recordAces(mo,deg,'huboThrowSteps');
 tname = recordAces(mo,da,'huboThrowR2');
-velot = playAces2(tname,T,3);
+velot = playAces2(tname,T,3,1);
 v = sum((velot.^2)');
 figure
 plot((1:length(v))*T,v);

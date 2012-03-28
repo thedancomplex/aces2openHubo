@@ -1,4 +1,4 @@
-function [theOut] = playAces2(tname,T,opt)
+function [theOut] = playAces2(tname,T,opt,vid)
 %%function [theOut] = playAces2(tname,T,opt)
 % Plays aces file at time step and returns paramater from opt
 % 
@@ -13,6 +13,7 @@ function [theOut] = playAces2(tname,T,opt)
 %				at that time step 0 if there is none
 %			3:	velos [Vx, Vy, Vz] of right hand in reference
 %				to the right foot
+%	vid 	=	if vid==1 pause to record video
 %
 % Return:
 %	theOut	=	output dependent on opt
@@ -63,7 +64,9 @@ x1 = [];
 vel = [];
 Tout = {};
 
-
+if(vid == 1)
+	input('Set Video Settings then press ENTER');
+end
 for ( i = 1:sAces(1))		% go over whole trajectory
 	%% set dof values
 	deg = d(i,:);
