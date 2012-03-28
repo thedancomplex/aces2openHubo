@@ -27,10 +27,11 @@ nstep 	= 	tSec/T;
 n 	= 	floor(nstep);
 da 	= 	[];
 d = [];
+ih = 1;
 for( i = 0:(s(1)-2))
 
 	for(j = 1:n(i+1))
-		ii = i*n+j;
+		ii = ih;
 		dv = (deg(i+2,:) - deg(i+1,:))/n(i+1);
 		dp = deg(i+1,:); 
 		da(ii,:) =  dp + dv*j;
@@ -38,6 +39,7 @@ for( i = 0:(s(1)-2))
 		for iii = 1:length(mDes)
 			da(ii,iii) = da(ii,iii)*orDir(mDes(iii)+1);
 		end
+		ih = ih+1;
 	end
 	d(i+1,:) = deg(i+1,:);
 	for iii = 1:length(mDes)
