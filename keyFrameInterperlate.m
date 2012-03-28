@@ -54,4 +54,13 @@ for(i = 1:length(mDes))
 end
 
 tname = recordAces(mo,da,'huboThrowR2');
-playAces(tname,T);
+theOut = playAces2(tname,T,3);
+
+figure;
+v = sum((theOut').^2);
+plot((1:length(v))*T,v);
+xlabel('Time (sec)');
+ylabel('Velos (m/sec)');
+title('Velos magnitude of right hand in reference to the right foot');
+
+
