@@ -1,5 +1,5 @@
 function [theOut] = playAces2(tname,T,opt,vid)
-%%function [theOut] = playAces2(tname,T,opt)
+%%function [theOut] = playAces2(tname,T,opt,vid)
 % Plays aces file at time step and returns paramater from opt
 % 
 % Send:
@@ -13,6 +13,7 @@ function [theOut] = playAces2(tname,T,opt,vid)
 %				at that time step 0 if there is none
 %			3:	velos [Vx, Vy, Vz] of right hand in reference
 %				to the right foot
+%			4: 	exclude last row
 %	vid 	=	if vid==1 pause to record video
 %
 % Return:
@@ -37,10 +38,19 @@ orBodyEnable(hubo,1)
 
 %% Load aces file
 [jc, dd] = readAces(tname);
+[jc, dd] = acesRmFrame(jc,dd);
 %[jc, dd] = readAces('jTest.aces');
 sAces = size(dd);
 d = dd(:,1:(sAces(2)));
 
+
+
+
+if( opt == 4)
+	d = d(:,1:(sAces(2)-1));
+	sAces = size(d);
+	jc = jc(1:(sAces(2)));
+end
 
 %% the joints used
 di 	= 	jc(1:(length(jc)));

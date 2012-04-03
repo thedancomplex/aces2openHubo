@@ -1,10 +1,16 @@
 close all
 clear all
 
+%% Add paths
+addpath('huboJointConstants');
+
 %% sampling rate
 T = 0.01;
 %%i setup initial hubo and world in openRAVE
 huboOpenRAVEsetup
+
+%% Load paramaters
+huboJointConst
 
 
 %% time start   
