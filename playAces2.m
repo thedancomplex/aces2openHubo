@@ -13,7 +13,7 @@ function [theOut] = playAces2(tname,T,opt,vid)
 %				at that time step 0 if there is none
 %			3:	velos [Vx, Vy, Vz] of right hand in reference
 %				to the right foot
-%			4: 	exclude last row
+%			4: 	Record New Files
 %	vid 	=	if vid==1 pause to record video
 %
 % Return:
@@ -39,17 +39,31 @@ orBodyEnable(hubo,1)
 %% Load aces file
 [jc, dd] = readAces(tname);
 [jc, dd] = acesRmFrame(jc,dd);
+[jc, dd] = acesOffsets(jc,dd);
+[jc, dd] = acesFilter(jc,dd,10);	%filter to smooth things out
 %[jc, dd] = readAces('jTest.aces');
 sAces = size(dd);
-d = dd(:,1:(sAces(2)));
+%d = dd(:,1:(sAces(2)));
+d = dd;
 
 
 
+%% record new files
+for( i = 1:length(opt))
+if( opt(i) == 4 )
+	m = {};
+	for( i = 1:length(jc) )
+		m{i} = jn{jc(i)+1};
+	end
+	 
+	recordName = recordAces(m, d, [tname,'.main']);
+	disp(['Main File Recorded:  ',recordName]);
 
-if( opt == 4)
-	d = d(:,1:(sAces(2)-1));
-	sAces = size(d);
-	jc = jc(1:(sAces(2)));
+	[ m, dsetup] = traj2setup(m,d,200);	%% get to fist pose in 2 seconds
+
+	setupName = recordAces(m, dsetup,[tname,'.setup']);
+	disp(['Setup File Recorded: ',setupName]);
+end
 end
 
 %% the joints used
@@ -114,7 +128,8 @@ for ( i = 1:sAces(1))		% go over whole trajectory
 	Trf = [reshape(Trf,[3,4]); 0 0 0 1];	% convert to square matrix
 	Tf = Trh*Trf;
 
-	switch opt
+	for( j = 1:length(opt))
+	switch opt(j)
 		case 2,
 			theOut = co;
 		case 1,
@@ -131,6 +146,7 @@ for ( i = 1:sAces(1))		% go over whole trajectory
 			vel(i,:) = f/T;
 			theOut = vel;
 		end
+	end
 
 end
 
