@@ -14,6 +14,8 @@ function [theOut] = playAces2(tname,T,opt,vid)
 %			3:	velos [Vx, Vy, Vz] of right hand in reference
 %				to the right foot
 %			4: 	Record New Files
+%			5:	Enables openrave, required for all other
+%				return functionality
 %	vid 	=	if vid==1 pause to record video
 %
 % Return:
@@ -28,7 +30,7 @@ theOut 	=	[];
 %%i setup initial hubo and world in openRAVE
 huboOpenRAVEsetup;
 
-
+addpath('recordAces');
 %% time start   
 t = 0;
 
@@ -41,6 +43,7 @@ orBodyEnable(hubo,1)
 [jc, dd] = acesRmFrame(jc,dd);
 [jc, dd] = acesOffsets(jc,dd);
 [jc, dd] = acesFilter(jc,dd,10);	%filter to smooth things out
+%[jc, dd] = rightHandMotion(jc,dd,120);	% release hand at 100
 %[jc, dd] = readAces('jTest.aces');
 sAces = size(dd);
 %d = dd(:,1:(sAces(2)));
@@ -91,6 +94,10 @@ Tout = {};
 if(vid == 1)
 	input('Set Video Settings then press ENTER');
 end
+
+theGo = find(opt == 5);
+
+if( theGo > 0 )
 for ( i = 1:sAces(1))		% go over whole trajectory
 	%% set dof values
 	deg = d(i,:);
@@ -149,7 +156,7 @@ for ( i = 1:sAces(1))		% go over whole trajectory
 	end
 
 end
-
+end
 
 %%%orEnvSetOptions('simulation start')
 disp('joints set')
